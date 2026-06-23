@@ -4,12 +4,14 @@ function CreateBlog({ addBlog, editingBlog, updateBlog }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     if (editingBlog) {
       setTitle(editingBlog.title);
       setAuthor(editingBlog.author);
       setContent(editingBlog.content);
+      setCategory(editingBlog.category || "");
     }
   }, [editingBlog]);
 
@@ -21,13 +23,16 @@ function CreateBlog({ addBlog, editingBlog, updateBlog }) {
         id: editingBlog.id,
         title,
         author,
+        category,
         content,
+        createdAt: editingBlog.createdAt,
       });
     } else {
       const newBlog = {
         id: Date.now(),
         title,
         author,
+        category,
         content,
         createdAt: new Date().toLocaleString(),
       };
@@ -37,6 +42,7 @@ function CreateBlog({ addBlog, editingBlog, updateBlog }) {
 
     setTitle("");
     setAuthor("");
+    setCategory("");
     setContent("");
   };
 
@@ -57,6 +63,18 @@ function CreateBlog({ addBlog, editingBlog, updateBlog }) {
         onChange={(e) => setAuthor(e.target.value)}
         required
       />
+
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        required
+      >
+        <option value="">Select Category</option>
+        <option value="Technology">Technology</option>
+        <option value="Education">Education</option>
+        <option value="Gaming">Gaming</option>
+        <option value="Lifestyle">Lifestyle</option>
+      </select>
 
       <textarea
         placeholder="Write your blog content..."
