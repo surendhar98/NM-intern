@@ -62,7 +62,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/NM-intern">
       <div className="container">
         <h1>
           📝 Content Creator Blog
