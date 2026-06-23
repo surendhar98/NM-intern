@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/NM-intern/static/css/main.03efbedc.css",
+    "main.js": "/NM-intern/static/js/main.ad6da66e.js",
+    "index.html": "/NM-intern/index.html",
+    "main.03efbedc.css.map": "/NM-intern/static/css/main.03efbedc.css.map",
+    "main.ad6da66e.js.map": "/NM-intern/static/js/main.ad6da66e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.03efbedc.css",
+    "static/js/main.ad6da66e.js"
+  ]
+}
