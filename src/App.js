@@ -1,20 +1,38 @@
 import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
 import "./App.css";
+
 import CreateBlog from "./components/CreateBlog";
 import Dashboard from "./components/Dashboard";
+import BlogDetails from "./components/BlogDetails";
 
 function App() {
   const [blogs, setBlogs] = useState([]);
-  const [editingBlog, setEditingBlog] = useState(null);
-  const [search, setSearch] = useState("");
+  const [editingBlog, setEditingBlog] =
+    useState(null);
+
+  const [search, setSearch] =
+    useState("");
 
   useEffect(() => {
-    const storedBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
+    const storedBlogs =
+      JSON.parse(
+        localStorage.getItem("blogs")
+      ) || [];
+
     setBlogs(storedBlogs);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("blogs", JSON.stringify(blogs));
+    localStorage.setItem(
+      "blogs",
+      JSON.stringify(blogs)
+    );
   }, [blogs]);
 
   const addBlog = (blog) => {
@@ -22,43 +40,87 @@ function App() {
   };
 
   const deleteBlog = (id) => {
-    setBlogs(blogs.filter((blog) => blog.id !== id));
-  };
-
-  const updateBlog = (updatedBlog) => {
     setBlogs(
-      blogs.map((blog) =>
-        blog.id === updatedBlog.id ? updatedBlog : blog
+      blogs.filter(
+        (blog) => blog.id !== id
       )
     );
+  };
+
+  const updateBlog = (
+    updatedBlog
+  ) => {
+    setBlogs(
+      blogs.map((blog) =>
+        blog.id === updatedBlog.id
+          ? updatedBlog
+          : blog
+      )
+    );
+
     setEditingBlog(null);
   };
 
   return (
-    <div className="container">
-      <h1>📝 Content Creator Blog Manager</h1>
+    <BrowserRouter>
+      <div className="container">
+        <h1>
+          📝 Content Creator Blog
+          Manager
+        </h1>
 
-      <CreateBlog
-        addBlog={addBlog}
-        editingBlog={editingBlog}
-        updateBlog={updateBlog}
-      />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <CreateBlog
+                  addBlog={addBlog}
+                  editingBlog={
+                    editingBlog
+                  }
+                  updateBlog={
+                    updateBlog
+                  }
+                />
 
-      <Dashboard
-  blogs={blogs}
-  deleteBlog={deleteBlog}
-  setEditingBlog={setEditingBlog}
-  search={search}
-/>
-      <input
-        type="text"
-        placeholder="Search blogs..."
-        className="search-box"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+                <input
+                  type="text"
+                  placeholder="Search Blogs..."
+                  className="search-box"
+                  value={search}
+                  onChange={(e) =>
+                    setSearch(
+                      e.target.value
+                    )
+                  }
+                />
 
-    </div>
+                <Dashboard
+                  blogs={blogs}
+                  deleteBlog={
+                    deleteBlog
+                  }
+                  setEditingBlog={
+                    setEditingBlog
+                  }
+                  search={search}
+                />
+              </>
+            }
+          />
+
+          <Route
+            path="/blog/:id"
+            element={
+              <BlogDetails
+                blogs={blogs}
+              />
+            }
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

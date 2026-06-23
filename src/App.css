@@ -121,3 +121,24 @@ h2 {
   border: 1px solid #d1d5db;
   border-radius: 8px;
 }
+
+.view-btn {
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  background: darkgreen;
+}
+
+.blog-details {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
