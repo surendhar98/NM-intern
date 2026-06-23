@@ -29,6 +29,7 @@ function CreateBlog({ addBlog, editingBlog, updateBlog }) {
         title,
         author,
         content,
+        createdAt: new Date().toLocaleString(),
       };
 
       addBlog(newBlog);

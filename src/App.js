@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 function App() {
   const [blogs, setBlogs] = useState([]);
   const [editingBlog, setEditingBlog] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const storedBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
@@ -44,10 +45,19 @@ function App() {
       />
 
       <Dashboard
-        blogs={blogs}
-        deleteBlog={deleteBlog}
-        setEditingBlog={setEditingBlog}
+  blogs={blogs}
+  deleteBlog={deleteBlog}
+  setEditingBlog={setEditingBlog}
+  search={search}
+/>
+      <input
+        type="text"
+        placeholder="Search blogs..."
+        className="search-box"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
+
     </div>
   );
 }

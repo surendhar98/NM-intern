@@ -1,6 +1,16 @@
 import React from "react";
 
-function Dashboard({ blogs, deleteBlog, setEditingBlog }) {
+function Dashboard({
+  blogs,
+  deleteBlog,
+  setEditingBlog,
+  search,
+}) {
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(search.toLowerCase()) ||
+    blog.author.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="dashboard">
       <h2>All Blog Posts</h2>
@@ -8,7 +18,7 @@ function Dashboard({ blogs, deleteBlog, setEditingBlog }) {
       {blogs.length === 0 ? (
         <p>No blog posts available.</p>
       ) : (
-        blogs.map((blog) => (
+        filteredBlogs.map((blog) => (
           <div key={blog.id} className="blog-card">
             <h3>{blog.title}</h3>
 
@@ -17,6 +27,10 @@ function Dashboard({ blogs, deleteBlog, setEditingBlog }) {
             </p>
 
             <p>{blog.content}</p>
+
+            <p className="date">
+              Created: {blog.createdAt}
+            </p>
 
             <div className="btn-group">
               <button

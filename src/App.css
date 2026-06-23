@@ -108,3 +108,16 @@ h2 {
 .delete-btn:hover {
   background: #dc2626;
 }
+.date {
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
