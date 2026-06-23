@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function CreateBlog({ addBlog }) {
+function CreateBlog({ addBlog, editingBlog, updateBlog }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
+  useEffect(() => {
+    if (editingBlog) {
+      setTitle(editingBlog.title);
+      setAuthor(editingBlog.author);
+      setContent(editingBlog.content);
+    }
+  }, [editingBlog]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newBlog = {
-      id: Date.now(),
-      title,
-      author,
-      content,
-    };
+    if (editingBlog) {
+      updateBlog({
+        id: editingBlog.id,
+        title,
+        author,
+        content,
+      });
+    } else {
+      const newBlog = {
+        id: Date.now(),
+        title,
+        author,
+        content,
+      };
 
-    addBlog(newBlog);
+      addBlog(newBlog);
+    }
 
     setTitle("");
     setAuthor("");
@@ -45,9 +62,11 @@ function CreateBlog({ addBlog }) {
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
-      ></textarea>
+      />
 
-      <button type="submit">Add Blog</button>
+      <button type="submit">
+        {editingBlog ? "Update Blog" : "Add Blog"}
+      </button>
     </form>
   );
 }

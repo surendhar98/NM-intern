@@ -5,10 +5,10 @@ import Dashboard from "./components/Dashboard";
 
 function App() {
   const [blogs, setBlogs] = useState([]);
+  const [editingBlog, setEditingBlog] = useState(null);
 
   useEffect(() => {
-    const storedBlogs =
-      JSON.parse(localStorage.getItem("blogs")) || [];
+    const storedBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
     setBlogs(storedBlogs);
   }, []);
 
@@ -24,15 +24,29 @@ function App() {
     setBlogs(blogs.filter((blog) => blog.id !== id));
   };
 
+  const updateBlog = (updatedBlog) => {
+    setBlogs(
+      blogs.map((blog) =>
+        blog.id === updatedBlog.id ? updatedBlog : blog
+      )
+    );
+    setEditingBlog(null);
+  };
+
   return (
     <div className="container">
-      <h1>Content Creator Blog Manager</h1>
+      <h1>📝 Content Creator Blog Manager</h1>
 
-      <CreateBlog addBlog={addBlog} />
+      <CreateBlog
+        addBlog={addBlog}
+        editingBlog={editingBlog}
+        updateBlog={updateBlog}
+      />
 
       <Dashboard
         blogs={blogs}
         deleteBlog={deleteBlog}
+        setEditingBlog={setEditingBlog}
       />
     </div>
   );
